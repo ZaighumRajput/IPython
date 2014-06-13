@@ -3,7 +3,7 @@
 program test1
 
     use newton, only: solve
-    use functions, only: f_sqrt, fprime_sqrt
+    use functions, only: f_objective, f_objectivePrime
 
     implicit none
     real(kind=8) :: x, x0, fx
@@ -20,12 +20,12 @@ program test1
     do itest=1,3
         x0 = x0vals(itest)
 		print *, ' '  ! blank line
-        call solve(f_sqrt, fprime_sqrt, x0, x, iters, debug)
+        call solve(f_objective, f_objectivePrime, x0, x, iters, debug)
 
         print 11, x, iters
 11      format('solver returns x = ', e22.15, ' after', i3, ' iterations')
 
-        fx = f_sqrt(x)
+        fx = f_objective(x)
         print 12, fx
 12      format('the value of f(x) is ', e22.15)
 

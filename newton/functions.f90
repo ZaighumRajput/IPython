@@ -21,4 +21,19 @@ real(kind=8) function fprime_sqrt(x)
 
 end function fprime_sqrt
 
+real(kind=8) function f_objective(x)
+	implicit none
+	real(kind=8), intent(in) :: x
+	
+	f_objective = sin(x) - 1 + x**x
+end function f_objective
+
+real(kind=8) function f_objectivePrime(x)
+	implicit none
+	real(kind=8), intent(in) :: x
+	
+	f_objectivePrime = cos(x) + 2*x
+end function f_objectivePrime
+
+
 end module functions
