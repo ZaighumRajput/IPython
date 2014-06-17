@@ -7,8 +7,8 @@ program privateExperiment
 	real(kind=8) :: y
 	integer :: n
 	integer :: i, nthreads
-	real(kind=8), dimension(100) :: x
-	n = 7
+	real(kind=8), dimension(10000) :: x
+	n = 1000
 	
 	
 	nthreads = 3
@@ -16,7 +16,7 @@ program privateExperiment
 	!$ print "('Using OpenMP with ',i3,' threads')", nthreads
 	
 	y = 2.d0
-	!$omp parallel do firstprivate(y) lastprivate(y)
+	!$omp parallel do firstprivate(y) lastprivate(y) if (n > 1000)
 	do i=1,n
 		y = y + 10.d0
 		x(i) = y
