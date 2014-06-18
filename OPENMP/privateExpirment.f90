@@ -8,7 +8,7 @@ program privateExperiment
 	integer :: n
 	integer :: i, nthreads
 	real(kind=8), dimension(10000) :: x
-	n = 1000
+	n = 100
 	
 	
 	nthreads = 3
