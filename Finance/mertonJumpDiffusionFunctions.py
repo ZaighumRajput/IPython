@@ -65,7 +65,9 @@ def test_NoJumpProcess():
                    r1,y1,t1,spotPriceA, SpotPriceA/moneynessA 
                    ==
            BlackScholes(1,spotPriceA,spotPriceA/moneynessA,t1,r1,parameters[3]))
-    
+    assert MJDCall(parameters[0], parameters[1], parameters[2], parameters[3],
+    				r2,y1, t1, spotPriceB, spotPriceB/moneynessB) == 
+    				BlackScholes(1,spotPriceA,spotPriceA/moneynessA,t1,r1,parameters[3]))
             
 
     #               Intensity	mean	jumpVol	VOL		Matlab				
