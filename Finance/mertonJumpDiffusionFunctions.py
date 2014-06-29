@@ -22,7 +22,6 @@ def BlackScholes(CallPutFlag,S,X,T,r,v):
     else:
         return X*exp(-r*T)*CND(-d2)-S*CND(-d1)
 
-# <codecell>
 
 def MJDCall(jumpIntensity, jumpMean, jumpVol, sigma, r, q, T, S, K):
     lambdaPrime = jumpIntensity*(1+jumpMean)
@@ -33,43 +32,75 @@ def MJDCall(jumpIntensity, jumpMean, jumpVol, sigma, r, q, T, S, K):
         call =+  ( exp(-lambdaPrime*T) * (lambdaPrime*T)**K * BlackScholes(S, K, T, r_n, q, sigma_n) * (1/factorial(k)))
     return call
 
-# <codecell>
 
-print MJDCall(0,0,0,0.25,0.03,0,1,1,1)
+#if __name__=='__main__':
+	
 
-class TestMJDCALLOptionPriceFormula():
-    
-        t1 = 1.0
-        t10 = 10.0
-        r1 = 0.03
-        r10 = 0.05
+
+class TestCasesforMJDCall:
+	
+	t1 = 1.0
+	t10 = 10.0
+	r1 = 0.03
+	r10 = 0.05
         
-        y1 = 0.03
-        y10 = 0.05
+	y1 = 0.03
+	y10 = 0.05
         
-        vol1 = 0.03
-        vol10 = 0.03
+	vol1 = 0.03
+	vol10 = 0.03
         
-        spotPriceA = 100
-        moneynessA = 1
-        maturityA = 1
+	spotPriceA = 100
+	moneynessA = 1
+	maturityA = 1
                     
-        spotPriceB = 100
-        moneynessB = 0.8
-        maturityB = 10
-
-
-def test_NoJumpProcess():
-    parameters = [0,0,0,0.25]
-    assert MJDCall(parameters[0], parameters[1], parameters[2], parameters[3],
-                   r1,y1,t1,spotPriceA, SpotPriceA/moneynessA 
-                   ==
-           BlackScholes(1,spotPriceA,spotPriceA/moneynessA,t1,r1,parameters[3]))
-    assert MJDCall(parameters[0], parameters[1], parameters[2], parameters[3],
-    				r2,y1, t1, spotPriceB, spotPriceB/moneynessB) == 
-    				BlackScholes(1,spotPriceA,spotPriceA/moneynessA,t1,r1,parameters[3]))
-            
-
+	spotPriceB = 100
+	moneynessB = 0.8
+	maturityB = 10
+	
+	def functionTests(self, parameters):
+		jumpIntensity = parameters[0]
+		jumpMean = parameters[1]
+		jumpVol = parameters[2]
+		vol = parameters[3]
+		
+		callPutFlag = 1
+		
+		assert MJDCall(jumpIntensity, jumpMean, jumpVol, vol, \
+					self.r1, self.y1, self.t1, self.spotPriceA, self.spotPriceA/self.moneynessA) == \
+					BlackScholes(callPutFlag,self.spotPriceA,self.spotPriceA/self.moneynessA,self.t1,self.r1,vol)
+	
+		assert MJDCall(jumpIntensity, jumpMean, jumpVol, vol, \
+					self.r1, self.y1, self.t1, self.spotPriceA, self.spotPriceA/self.moneynessA) == \
+					BlackScholes(callPutFlag,self.spotPriceA,self.spotPriceA/self.moneynessA,self.t1,self.r1,vol)
+	
+		assert MJDCall(jumpIntensity, jumpMean, jumpVol, vol, \
+					self.r1, self.y1, self.t1, self.spotPriceA, self.spotPriceA/self.moneynessA) == \
+					BlackScholes(callPutFlag,self.spotPriceA,self.spotPriceA/self.moneynessA,self.t1,self.r1,vol)
+		
+		
+	
+	
+	def test_NoJumpProcess(self):
+		a = TestCasesforMJDCall()
+		a.functionTests(np.array([0,0,0,0.25]))
+			
+	#def test_NoJumpProcess(self):
+	#	parameters = np.array([0,0,0,0.25])
+	#	assert MJDCall(0,0,0,0.25,0.03,0,1,1,1) == 0
+	#	assert parameters[self.t1] == 0
+	#	jumpIntensity = parameters[0]
+	#	jumpMean = parameters[1]
+	#	jumpVol = parameters[2]
+	#	vol = parameters[3]
+		#assert MJDCall(0,0,0,0.25, self.r1, self.y1, self.t1, self.spotPriceA, self.spotPriceA/self.moneynessA) == 5
+		
+    	#assert MJDCall(jumpIntensity, jumpMean, jumpVol, vol,
+        #           r1,y1,t1,spotPriceA, SpotPriceA/moneynessA) == \
+        #   BlackScholes(1,spotPriceA,spotPriceA/moneynessA,t1,r1,vol)
+    	#assert MJDCall(parameters[0], parameters[1], parameters[2], parameters[3],
+    	#			r2,y1, t1, spotPriceB, spotPriceB/moneynessB) == \
+    	#			BlackScholes(1,spotPriceA,spotPriceA/moneynessA,t1,r1,parameters[3])
     #               Intensity	mean	jumpVol	VOL		Matlab				
 #.AEX-Index Curve	0.20198608	-0.254267161	0.046407838	0.096676606			0.2047	-0.2523	0.0495	0.0964
 #.IBEX-Index Curve	0.441440266	-0.204915812	0.091882019	0.126625648			0.4377	-0.2062	0.09	0.1265
