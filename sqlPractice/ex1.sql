@@ -1,3 +1,4 @@
+//Learn python the hardway
 CREATE TABLE person (
 	id integer primary key,
 	first_name text,
