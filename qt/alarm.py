@@ -22,7 +22,7 @@ try:
 	if len(sys.argv) > 2:
 		message = " ".join(sys.argv[2:])
 except ValueError:
-	message = "To use alarm.py HH:MM [optional message]" #24hr clock
+	message = "To use alarm.py HH:MM:SS [optional message]" #24hr clock
 	
 
 while QTime.currentTime() < due:
