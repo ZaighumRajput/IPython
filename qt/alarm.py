@@ -1,4 +1,5 @@
 '''
+afaO
 Rapid GUI Programming with Python and Qt
 '''
 
